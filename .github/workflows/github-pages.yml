@@ -35,6 +35,11 @@ jobs:
           bundler-cache: true
           # Increment this number if you need to re-download cached gems
           cache-version: 0
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+      - run: npm install
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
