@@ -1,10 +1,5 @@
 ---
 ---
 
-@import "tailwindcss";
-
-@layer utilities {
-
-}
-
-@config "../../tailwind.config.js";
+/* Import separate tailwind.css file which import tailwind, to make both Jekyll and the Tailwind language server happy */
+@import "./tailwind.css";
