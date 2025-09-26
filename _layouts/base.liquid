@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: "en-US" }}">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>{{ page.title }} - {{ site.title }}</title>
+    <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
+</head>
+<body class="bg-neutral-50">
+<div class="bg-neutral-50 sticky h-28 flex flex-row items-center p-4">
+    <img src="{{ "assets/images/logo-pixento.svg" | relative_url }}" alt="Pixento logo" class="h-full">
+</div>
+{{ content }}
+</body>
+</html>
