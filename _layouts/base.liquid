@@ -6,10 +6,17 @@
     <title>{{ page.title }} - {{ site.title }}</title>
     <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
 </head>
-<body class="bg-neutral-50">
-<div class="bg-neutral-50 sticky h-28 flex flex-row items-center p-4">
-    <img src="{{ "assets/images/logo-pixento.svg" | relative_url }}" alt="Pixento logo" class="h-full">
+<body>
+<div class="bg-neutral-50 flex flex-col min-h-dvh">
+    <div class="grow">
+        <div class="bg-neutral-50 sticky h-28 flex flex-row items-center p-4">
+            <img src="{{ "assets/images/logo-pixento.svg" | relative_url }}" alt="Pixento logo" class="h-full">
+        </div>
+        {{ content }}
+    </div>
+    <div class="bg-neutral-100 h-10 text-sm flex items-center justify-center text-neutral-700">
+        &copy; {{ "now" | date: "%Y" }} Pixento
+    </div>
 </div>
-{{ content }}
 </body>
 </html>
