@@ -6,8 +6,8 @@ client: 'De Kiesraad'
 title: 'Een portaal voor verkiezingsuitslagen'
 summary: 'Full-stack developer aan een webapplicatie die de uitslagen van verkiezingen toegankelijk maakt, gebouwd met Django en React.'
 stats:
-  - { value: 'EML', label: 'officiële uitslagbestanden geïmporteerd' }
-  - { value: 'Django', label: 'backend, met een React-front-end' }
+  - { value: 'Python', label: 'Django backend' }
+  - { value: 'TypeScript', label: 'React-front-end met Tailwind CSS' }
   - { value: 'Kubernetes', label: 'managed cluster bij Scaleway' }
 tags: ['Python', 'Django', 'TypeScript', 'React', 'Docker', 'Kubernetes', 'Scaleway']
 tone: blue

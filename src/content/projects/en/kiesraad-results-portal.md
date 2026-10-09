@@ -6,8 +6,8 @@ client: 'Dutch Electoral Council (Kiesraad)'
 title: 'A portal for election results'
 summary: 'Full-stack developer on a web application that makes election results accessible, built with Django and React.'
 stats:
-  - { value: 'EML', label: 'official result files imported' }
-  - { value: 'Django', label: 'backend, with a React front-end' }
+  - { value: 'Python', label: 'Django backend' }
+  - { value: 'TypeScript', label: 'React front-end with Tailwind CSS' }
   - { value: 'Kubernetes', label: 'managed cluster at Scaleway' }
 tags: ['Python', 'Django', 'TypeScript', 'React', 'Docker', 'Kubernetes', 'Scaleway']
 tone: blue
