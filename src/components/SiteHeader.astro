@@ -1,0 +1,42 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.svg';
+import Button from './ui/Button.astro';
+import LangSwitch from './LangSwitch.astro';
+import { pagePath, useTranslations, type Lang, type Page } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  current?: Page;
+  paths: Record<Lang, string>;
+}
+const { lang, current, paths } = Astro.props;
+const t = useTranslations(lang);
+const nav: Page[] = ['home', 'work'];
+---
+
+<header class="sticky top-0 z-50 border-b border-line bg-ink-50/92 backdrop-blur-sm">
+  <div class="mx-auto flex h-18 max-w-content items-center gap-4 px-6 sm:gap-8">
+    <a href={pagePath('home', lang)} class="flex">
+      <Image src={logo} alt="Pixento — Software engineering" class="h-9 w-auto sm:h-11" loading="eager" />
+    </a>
+    <nav class="ml-auto flex gap-5 sm:gap-7">
+      {
+        nav.map((page) => (
+          <a
+            href={pagePath(page, lang)}
+            aria-current={page === current ? 'page' : undefined}
+            class:list={[
+              'border-b-3 pt-6 pb-5.25 text-ui font-bold no-underline hover:no-underline',
+              page === current ? 'border-orange-500 text-fg-strong hover:text-fg-strong' : 'border-transparent text-fg-muted hover:text-fg-strong',
+            ]}
+          >
+            {t.nav[page]}
+          </a>
+        ))
+      }
+    </nav>
+    <LangSwitch lang={lang} paths={paths} label={t.langLabel} />
+    <Button size="sm" iconRight="arrow-right" href={pagePath('contact', lang)} class="max-sm:hidden">{t.cta}</Button>
+  </div>
+</header>

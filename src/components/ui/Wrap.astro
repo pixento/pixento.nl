@@ -1,0 +1,10 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'div'> {
+  narrow?: boolean;
+}
+const { narrow, class: className, ...rest } = Astro.props;
+---
+
+<div class:list={['mx-auto px-6', narrow ? 'max-w-narrow' : 'max-w-content', className]} {...rest}><slot /></div>

@@ -1,0 +1,24 @@
+---
+interface Props {
+  tone?: 'neutral' | 'orange' | 'blue' | 'success' | 'warning' | 'danger' | 'solid';
+  dot?: boolean;
+  class?: string;
+}
+
+const { tone = 'neutral', dot, class: className } = Astro.props;
+
+const tones = {
+  neutral: 'bg-ink-100 text-ink-700',
+  orange: 'bg-orange-100 text-orange-700',
+  blue: 'bg-blue-100 text-blue-700',
+  success: 'bg-green-100 text-green-600',
+  warning: 'bg-yellow-100 text-yellow-600',
+  danger: 'bg-red-100 text-red-600',
+  solid: 'bg-ink-900 text-white',
+};
+---
+
+<span class:list={['inline-flex h-5.5 items-center gap-1.5 rounded-xs px-2 text-[11px] leading-none font-bold tracking-badge uppercase whitespace-nowrap', tones[tone], className]}>
+  {dot && <span class="size-1.5 bg-current" aria-hidden="true" />}
+  <slot />
+</span>

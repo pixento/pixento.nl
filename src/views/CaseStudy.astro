@@ -1,0 +1,64 @@
+---
+import { render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Badge from '../components/ui/Badge.astro';
+import Button from '../components/ui/Button.astro';
+import Card from '../components/ui/Card.astro';
+import Tag from '../components/ui/Tag.astro';
+import Wrap from '../components/ui/Wrap.astro';
+import { otherLang, pagePath, projectPath, useTranslations, type Lang } from '../i18n/ui';
+import { getProjects, projectSlug, type Project } from '../data/projects';
+
+interface Props {
+  lang: Lang;
+  project: Project;
+}
+const { lang, project: p } = Astro.props;
+const t = useTranslations(lang).work;
+const { Content } = await render(p);
+
+// Language switch goes to the translation of this project, or the other language's work page.
+const other = otherLang(lang);
+const translation = (await getProjects(other)).find((q) => q.data.key === p.data.key);
+const paths = {
+  [lang]: projectPath(projectSlug(p), lang),
+  [other]: translation ? projectPath(projectSlug(translation), other) : pagePath('work', other),
+} as Record<Lang, string>;
+---
+
+<Base lang={lang} title={p.data.title} description={p.data.summary} current="work" paths={paths}>
+  <Wrap class="pt-14">
+    <Button variant="ghost" size="sm" iconLeft="arrow-left" href={pagePath('work', lang)}>{t.back}</Button>
+  </Wrap>
+  <Wrap narrow class="pt-6">
+    <Badge tone={p.data.tone}>{p.data.client}</Badge>
+    <h1 class="mt-4 text-[48px] leading-none sm:text-display-l">{p.data.title}</h1>
+    <p class="mt-4 text-lead">{p.data.summary}</p>
+
+    <div class="mt-10 grid grid-cols-3 gap-4 border-t-2 border-b border-t-ink-800 border-b-line">
+      {
+        p.data.stats.map((s) => (
+          <div class="py-5">
+            <div class="font-display text-[48px] leading-none font-bold text-orange-600">{s.value}</div>
+            <div class="text-[13px] text-fg-muted">{s.label}</div>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="[&_h2]:mt-12 [&_h2]:text-h2 [&_h2+p]:mt-2 [&_p]:mt-4 [&_p]:text-md [&_pre]:mt-5 [&_pre]:overflow-x-auto [&_pre]:rounded-sm [&_pre]:bg-surface-dark [&_pre]:p-5 [&_pre]:text-sm [&_pre]:leading-[1.7] [&_pre]:text-ink-200">
+      <Content />
+    </div>
+
+    {
+      p.data.quote && (
+        <Card variant="sunken" class="mt-10">
+          <p class="font-display text-[30px] leading-[1.2] font-light">“{p.data.quote}”</p>
+          {p.data.quoteBy && <p class="mt-2 text-sm text-fg-muted">— {p.data.quoteBy}</p>}
+        </Card>
+      )
+    }
+
+    <div class="mt-8 flex flex-wrap gap-1.5">{p.data.tags.map((tag) => <Tag>{tag}</Tag>)}</div>
+  </Wrap>
+</Base>

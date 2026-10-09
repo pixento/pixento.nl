@@ -1,0 +1,63 @@
+---
+import { Icon } from 'astro-icon/components';
+import Base from '../layouts/Base.astro';
+import Button from '../components/ui/Button.astro';
+import Card from '../components/ui/Card.astro';
+import IconButton from '../components/ui/IconButton.astro';
+import Overline from '../components/ui/Overline.astro';
+import Toast from '../components/ui/Toast.astro';
+import Wrap from '../components/ui/Wrap.astro';
+import { isTodo, useTranslations, type Lang } from '../i18n/ui';
+import { site } from '../data/site';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang).contact;
+const hasEmail = !isTodo(site.email);
+---
+
+<Base lang={lang} title={t.title} current="contact">
+  <Wrap class="grid gap-16 pt-20 md:grid-cols-[1fr_1.2fr]">
+    <div>
+      <Overline>{t.over}</Overline>
+      <h1 class="mt-2 text-[56px] leading-none sm:text-display-l">{t.h1}</h1>
+      <p class="mt-4 text-[18px]">{t.lede}</p>
+      <div class="mt-8 flex flex-col gap-3 text-ui">
+        <div class="flex items-center gap-2.5">
+          <Icon name="lucide:mail" class="size-4.5 text-orange-600" aria-hidden="true" />
+          {hasEmail ? <a href={`mailto:${site.email}`}>{site.email}</a> : <span>{site.email}</span>}
+          {hasEmail && <IconButton icon="copy" label={t.copy} size="sm" data-copy={site.email} data-toast="copy-toast" />}
+        </div>
+        <div class="flex items-center gap-2.5">
+          <Icon name="lucide:map-pin" class="size-4.5 text-orange-600" aria-hidden="true" />
+          {t.where}
+        </div>
+      </div>
+    </div>
+
+    <Card variant="block" class="flex flex-col gap-5 self-start p-8">
+      <h2 class="text-h2">{t.directH}</h2>
+      <p>{t.directP}</p>
+      {hasEmail && <Button size="lg" fullWidth iconRight="send" href={`mailto:${site.email}`}>{t.mail}</Button>}
+      <Button size="lg" fullWidth variant="secondary" iconRight="linkedin" href={site.linkedin} target="_blank" rel="noopener">{t.linkedin}</Button>
+    </Card>
+  </Wrap>
+
+  <Toast id="copy-toast" title={t.copied} body={t.copiedB} />
+</Base>
+
+<script>
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  document.querySelectorAll<HTMLElement>('[data-copy]').forEach((button) => {
+    button.addEventListener('click', async () => {
+      await navigator.clipboard.writeText(button.dataset.copy ?? '');
+      const toast = document.getElementById(button.dataset.toast ?? '');
+      if (!toast) return;
+      toast.hidden = false;
+      clearTimeout(timer);
+      timer = setTimeout(() => (toast.hidden = true), 3200);
+    });
+  });
+</script>

@@ -1,0 +1,181 @@
+@import "tailwindcss";
+@import "@fontsource/yanone-kaffeesatz/300.css";
+@import "@fontsource/yanone-kaffeesatz/700.css";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/600.css";
+@import "@fontsource-variable/nunito-sans/opsz.css";
+
+/* Qlassik — the wordmark's rounded sans; brand accent for overlines only (always bold) */
+@font-face {
+  font-family: "Qlassik";
+  src: url("/fonts/QlassikBold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Pixento Design System — brand tokens as Tailwind theme variables.
+ * Default palette, fonts, type scale, radii, shadows and easings are reset so only brand values exist. */
+@theme {
+  /* Colors — orange and blue sampled from the logo, ink from the #333 wordmark */
+  --color-*: initial;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --color-orange-100: #fff0e5;
+  --color-orange-200: #ffd5b8;
+  --color-orange-300: #ff9955;
+  --color-orange-400: #ff7f2a;
+  --color-orange-500: #ff6600;
+  --color-orange-600: #d45500;
+  --color-orange-700: #aa4400;
+  --color-orange-800: #7a3100;
+
+  --color-blue-100: #e8f3fb;
+  --color-blue-200: #c4e1f4;
+  --color-blue-300: #57b1e0;
+  --color-blue-400: #43a2d7;
+  --color-blue-500: #2987d8;
+  --color-blue-600: #216fb3;
+  --color-blue-700: #1a559e;
+  --color-blue-800: #123c70;
+
+  --color-ink-50: #f9f8f5;
+  --color-ink-100: #f2f1ee;
+  --color-ink-200: #e6e5e1;
+  --color-ink-300: #cfcfcc;
+  --color-ink-400: #a8a8a8;
+  --color-ink-500: #858585;
+  --color-ink-600: #666666;
+  --color-ink-700: #4a4a4a;
+  --color-ink-800: #333333;
+  --color-ink-900: #1f1f1f;
+
+  --color-green-100: #e3f3e8;
+  --color-green-600: #2e8a4f;
+  --color-red-100: #fbe6e4;
+  --color-red-600: #c8352b;
+  --color-yellow-100: #fdf3d6;
+  --color-yellow-600: #b07d00;
+
+  /* Semantic aliases — bg-primary, text-fg-muted, bg-surface-card, border-line … */
+  --color-primary: var(--color-orange-500);
+  --color-primary-hover: var(--color-orange-600);
+  --color-primary-press: var(--color-orange-700);
+  --color-secondary: var(--color-blue-600);
+  --color-secondary-hover: var(--color-blue-700);
+  --color-fg: var(--color-ink-800);
+  --color-fg-strong: var(--color-ink-900);
+  --color-fg-muted: var(--color-ink-600);
+  --color-fg-subtle: var(--color-ink-500);
+  --color-fg-on-dark: var(--color-ink-50);
+  --color-fg-accent: var(--color-orange-700);
+  --color-link: var(--color-blue-600);
+  --color-link-hover: var(--color-blue-700);
+  --color-surface-page: var(--color-ink-50);
+  --color-surface-card: var(--color-white);
+  --color-surface-sunken: var(--color-ink-100);
+  --color-surface-dark: var(--color-ink-900);
+  --color-surface-dark-raised: #2a2a2a;
+  --color-line: var(--color-ink-200);
+  --color-line-strong: var(--color-ink-300);
+  --color-line-ink: var(--color-ink-800);
+  --color-line-focus: var(--color-blue-500);
+
+  /* Fonts — font-sans (Nunito Sans, body/UI), font-brand (Qlassik, overlines only), font-display (Yanone, headings only), font-mono */
+  --font-*: initial;
+  --font-sans: "Nunito Sans Variable", "Nunito Sans", "Segoe UI", system-ui, sans-serif;
+  --font-brand: "Qlassik", "Nunito Sans Variable", "Nunito Sans", sans-serif;
+  --font-display: "Yanone Kaffeesatz", "Barlow Condensed", "Arial Narrow", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* Type scale — Yanone display sizes up, Qlassik text sizes */
+  --text-*: initial;
+  --text-display-xl: 96px;
+  --text-display-xl--line-height: 0.95;
+  --text-display-l: 72px;
+  --text-display-l--line-height: 1;
+  --text-display-m: 56px;
+  --text-display-m--line-height: 1.05;
+  --text-h1: 44px;
+  --text-h1--line-height: 1.1;
+  --text-h2: 34px;
+  --text-h2--line-height: 1.1;
+  --text-h3: 26px;
+  --text-h3--line-height: 1.1;
+  --text-lead: 20px;
+  --text-lead--line-height: 1.5;
+  --text-md: 17px;
+  --text-md--line-height: 1.55;
+  --text-base: 16px;
+  --text-base--line-height: 1.55;
+  --text-ui: 15px;
+  --text-ui--line-height: 1.5;
+  --text-sm: 14px;
+  --text-sm--line-height: 1.45;
+  --text-xs: 12px;
+  --text-xs--line-height: 1.35;
+  --tracking-overline: 0.14em;
+  --tracking-badge: 0.1em;
+
+  /* Spacing — Tailwind's numeric scale on the 4px pixel grid: p-4 = 16px */
+  --spacing: 4px;
+  --container-content: 1200px;
+  --container-narrow: 808px;
+
+  /* Radii — near-square, like pixels */
+  --radius-*: initial;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-full: 9999px;
+
+  /* Shadows — hard offset "block" shadows are brand; soft ones are for overlays only */
+  --shadow-*: initial;
+  --shadow-sm: 0 1px 2px rgb(31 31 31 / 0.08);
+  --shadow-md: 0 4px 12px rgb(31 31 31 / 0.1);
+  --shadow-lg: 0 12px 32px rgb(31 31 31 / 0.16);
+  --shadow-block-sm: 2px 2px 0 var(--color-ink-800);
+  --shadow-block: 4px 4px 0 var(--color-ink-800);
+  --shadow-block-lg: 6px 6px 0 var(--color-ink-800);
+  --shadow-block-orange: 4px 4px 0 var(--color-orange-600);
+  --shadow-block-blue: 4px 4px 0 var(--color-blue-700);
+
+  /* Motion — crisp, no bounce */
+  --ease-*: initial;
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.6, 0, 0.3, 1);
+}
+
+@layer base {
+  body {
+    @apply bg-surface-page font-sans text-base text-fg antialiased;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display font-bold text-fg-strong;
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  a {
+    @apply text-link underline decoration-1 underline-offset-3;
+  }
+  a:hover {
+    @apply text-link-hover decoration-2;
+  }
+  code, kbd, pre {
+    @apply font-mono;
+    font-size: 0.9em;
+  }
+  ::selection {
+    @apply bg-orange-200 text-ink-900;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-line-focus);
+    outline-offset: 2px;
+  }
+}

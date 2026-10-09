@@ -1,5 +1,5 @@
-# Sample workflow for building and deploying a Jekyll site to GitHub Pages
-name: Deploy Jekyll site to Pages
+# Builds the Astro site and deploys it to GitHub Pages
+name: Deploy Astro site to Pages
 
 on:
   # Runs on pushes targeting the default branch
@@ -29,29 +29,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          # runs 'bundle install' and caches installed gems automatically
-          bundler-cache: true
-          # Increment this number if you need to re-download cached gems
-          cache-version: 0
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
-      - run: npm install
+          node-version: '22'
+          cache: npm
+      - run: npm ci
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
-      - name: Build with Jekyll
-        # Outputs to the './_site' directory by default
-        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
-        env:
-          JEKYLL_ENV: production
+      - name: Build with Astro
+        # Outputs to the './dist' directory
+        run: npx astro build --base "${{ steps.pages.outputs.base_path }}/"
       - name: Upload artifact
-        # Automatically uploads an artifact from the './_site' directory by default
         uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
 
   # Deployment job
   deploy:
