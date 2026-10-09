@@ -29,7 +29,6 @@ const year = new Date().getFullYear();
     <div class="flex flex-col gap-2 text-sm">
       <b class="mb-1 text-white">{t.footer.elsewhere}</b>
       <div class="flex gap-2">
-        {/* TODO: GitHub-link toevoegen in src/data/site.ts */}
         {!isTodo(site.github) && <IconButton icon="github" label="GitHub" variant="dark" href={site.github} />}
         <IconButton icon="linkedin" label="LinkedIn" variant="dark" href={site.linkedin} target="_blank" rel="noopener" />
         {!isTodo(site.email) && <IconButton icon="mail" label="E-mail" variant="dark" href={`mailto:${site.email}`} />}

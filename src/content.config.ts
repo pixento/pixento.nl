@@ -10,7 +10,8 @@ const projects = defineCollection({
   loader: glob({ pattern: '*/*.md', base: './src/content/projects' }),
   schema: z.object({
     key: z.string(),
-    year: z.number(),
+    /** First month of the engagement, e.g. 2025-12; sorts the timeline and gives the year. */
+    start: z.coerce.date(),
     period: z.string(),
     client: z.string(),
     title: z.string(),

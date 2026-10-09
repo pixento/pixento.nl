@@ -32,7 +32,7 @@ const projects = await getProjects(lang);
           return (
             <li class="grid grid-cols-[16px_1fr] items-start gap-x-6 not-last:pb-10 md:grid-cols-[120px_56px_1fr] md:gap-x-0">
               <div class="col-start-2 mb-3 md:col-start-1 md:row-start-1 md:mb-0 md:pt-0.5 md:text-right">
-                <div class:list={['font-display text-[40px] leading-none font-bold', latest ? 'text-orange-600' : 'text-fg-strong']}>{p.data.year}</div>
+                <div class:list={['font-display text-[40px] leading-none font-bold', latest ? 'text-orange-600' : 'text-fg-strong']}>{p.data.start.getFullYear()}</div>
                 <div class="mt-1 text-[13px] text-fg-muted">{p.data.period}</div>
               </div>
               <div class="col-start-1 row-start-1 flex justify-center pt-2.5 md:col-start-2">

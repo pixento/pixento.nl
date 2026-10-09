@@ -59,7 +59,7 @@ const [planHead, done1, done2, todo1, todo2, planQuote] = t.plan;
   <Wrap class="pt-24">
     <Overline>{t.whatOver}</Overline>
     <h2 class="mt-2 max-w-170 text-[44px] sm:text-display-m">{t.whatH}</h2>
-    <div class="mt-10 grid gap-6 md:grid-cols-3">
+    <div class="mt-10 grid gap-6 md:grid-cols-2">
       {
         services.map((s) => (
           <Card class="flex flex-col gap-3">
@@ -83,7 +83,7 @@ const [planHead, done1, done2, todo1, todo2, planQuote] = t.plan;
         <h2 class="text-[48px] leading-[1.05]">{t.ctaH}</h2>
         <p class="mt-2 text-[18px]">{t.ctaP}</p>
       </div>
-      <Button size="lg" iconRight="calendar" href={pagePath('contact', lang)} class="justify-self-start">{T.cta}</Button>
+      <Button size="lg" iconRight="arrow-right" href={pagePath('contact', lang)} class="justify-self-start">{T.cta}</Button>
     </Card>
   </Wrap>
 </Base>
