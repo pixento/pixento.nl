@@ -1,0 +1,41 @@
+---
+import '../styles/global.css';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { langs, pagePath, useTranslations, type Lang, type Page } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description?: string;
+  /** Active nav item. */
+  current?: Page;
+  /** Path of this page in each language; defaults to the route of `current`. */
+  paths?: Record<Lang, string>;
+}
+
+const { lang, title, description, current = 'home' } = Astro.props;
+const t = useTranslations(lang);
+const paths = Astro.props.paths ?? { nl: pagePath(current, 'nl'), en: pagePath(current, 'en') };
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} — Pixento</title>
+    <meta name="description" content={description ?? t.meta.description} />
+    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+    {langs.map((l) => <link rel="alternate" hreflang={l} href={new URL(paths[l], Astro.site)} />)}
+    <link rel="canonical" href={new URL(paths[lang], Astro.site)} />
+  </head>
+  <body class="flex min-h-dvh flex-col">
+    <SiteHeader lang={lang} current={current} paths={paths} />
+    <main class="grow">
+      <slot />
+    </main>
+    <SiteFooter lang={lang} paths={paths} />
+  </body>
+</html>

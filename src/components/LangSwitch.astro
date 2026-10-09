@@ -1,0 +1,36 @@
+---
+import { langs, languages, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  /** Path of the current page in each language. */
+  paths: Record<Lang, string>;
+  label: string;
+  dark?: boolean;
+}
+const { lang, paths, label, dark } = Astro.props;
+---
+
+<div role="group" aria-label={label} class:list={['flex overflow-hidden rounded-sm border', dark ? 'border-[#444]' : 'border-line-strong']}>
+  {
+    langs.map((l) => {
+      const on = l === lang;
+      return (
+        <a
+          href={paths[l]}
+          hreflang={l}
+          lang={l}
+          title={languages[l]}
+          aria-current={on ? 'true' : undefined}
+          class:list={[
+            'px-2.5 py-1.5 text-xs leading-none font-bold tracking-[.08em] uppercase no-underline hover:no-underline',
+            on && (dark ? 'bg-white text-ink-900 hover:text-ink-900' : 'bg-ink-800 text-white hover:text-white'),
+            !on && (dark ? 'text-ink-300 hover:text-white' : 'text-fg-muted hover:text-fg-strong'),
+          ]}
+        >
+          {l}
+        </a>
+      );
+    })
+  }
+</div>

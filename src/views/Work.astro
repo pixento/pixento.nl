@@ -1,0 +1,64 @@
+---
+import { Icon } from 'astro-icon/components';
+import Base from '../layouts/Base.astro';
+import Badge from '../components/ui/Badge.astro';
+import Card from '../components/ui/Card.astro';
+import Overline from '../components/ui/Overline.astro';
+import Tag from '../components/ui/Tag.astro';
+import Wrap from '../components/ui/Wrap.astro';
+import { projectPath, useTranslations, type Lang } from '../i18n/ui';
+import { getProjects, projectSlug } from '../data/projects';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang).work;
+const projects = await getProjects(lang);
+---
+
+<Base lang={lang} title={t.title} current="work">
+  <Wrap class="pt-20 pb-10">
+    <Overline>{t.over}</Overline>
+    <h1 class="mt-2 text-[56px] leading-none sm:text-display-l">{t.h1}</h1>
+    <p class="mt-2 max-w-140 text-[18px] text-fg-muted">{t.lede}</p>
+  </Wrap>
+
+  <Wrap class="max-w-250">
+    <ol class="relative before:absolute before:top-2 before:bottom-2 before:left-[7px] before:w-0.5 before:bg-ink-200 md:before:left-[147px]">
+      {
+        projects.map((p, i) => {
+          const latest = i === 0;
+          return (
+            <li class="grid grid-cols-[16px_1fr] items-start gap-x-6 not-last:pb-10 md:grid-cols-[120px_56px_1fr] md:gap-x-0">
+              <div class="col-start-2 mb-3 md:col-start-1 md:row-start-1 md:mb-0 md:pt-0.5 md:text-right">
+                <div class:list={['font-display text-[40px] leading-none font-bold', latest ? 'text-orange-600' : 'text-fg-strong']}>{p.data.start.getFullYear()}</div>
+                <div class="mt-1 text-[13px] text-fg-muted">{p.data.period}</div>
+              </div>
+              <div class="col-start-1 row-start-1 flex justify-center pt-2.5 md:col-start-2">
+                <span class:list={['relative z-1 size-4 border-2', latest ? 'border-orange-500 bg-orange-500' : 'border-ink-800 bg-white']} />
+              </div>
+              <Card variant="block" interactive href={projectPath(projectSlug(p), lang)} class="col-start-2 flex flex-col gap-3 p-7 md:col-start-3 md:row-start-1">
+                <div class="flex justify-between">
+                  <Badge tone={p.data.tone}>{p.data.client}</Badge>
+                  <Icon name="lucide:arrow-up-right" class="size-5" aria-hidden="true" />
+                </div>
+                <h2 class="text-[36px] leading-[1.05]">{p.data.title}</h2>
+                <p class="text-ui">{p.data.summary}</p>
+                <div class="flex flex-wrap gap-6 border-t border-line pt-3">
+                  {p.data.stats.map((s) => (
+                    <div>
+                      <div class="font-display text-[26px] leading-none font-bold">{s.value}</div>
+                      <div class="text-xs text-fg-muted">{s.label}</div>
+                    </div>
+                  ))}
+                </div>
+                <div class="flex flex-wrap gap-1.5">{p.data.tags.map((tag) => <Tag>{tag}</Tag>)}</div>
+              </Card>
+            </li>
+          );
+        })
+      }
+    </ol>
+  </Wrap>
+</Base>
