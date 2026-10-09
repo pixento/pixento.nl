@@ -93,7 +93,7 @@ export const ui = {
       description: 'Pixento — freelance lead software engineer.',
     },
     footer: {
-      blurb: 'Freelance software engineering and technical leadership. Based in the Gouda, working wherever the problem is.',
+      blurb: 'Freelance software engineering and technical leadership. Based in Gouda, working wherever the problem is.',
       site: 'Site',
       elsewhere: 'Elsewhere',
       tag: 'built with care · deployed on a Tuesday',
